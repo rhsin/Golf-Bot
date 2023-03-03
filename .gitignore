@@ -1,4 +1,4 @@
-config
+config.py
 selenium
 chromedriver_py
 pytz
