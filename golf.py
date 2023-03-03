@@ -75,6 +75,13 @@ def open_non_resident():
  
 
 def find_tee_time(courses):
+  input_date = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='date-field']")))
+  input_date.send_keys(Keys.CONTROL + "a")
+  input_date.send_keys(Keys.DELETE)
+  input_date.send_keys(date.strftime("%m-%d-%Y"))
+  input_date.send_keys(Keys.RETURN)
+  time.sleep(1)
+
   select_course = Select(WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "schedule_select"))))
   select_course.select_by_visible_text(courses[0])
   time.sleep(1)
@@ -105,6 +112,13 @@ def find_tee_time(courses):
 
 
 def find_tee_time_refresh(course):
+  input_date = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='date-field']")))
+  input_date.send_keys(Keys.CONTROL + "a")
+  input_date.send_keys(Keys.DELETE)
+  input_date.send_keys(date.strftime("%m-%d-%Y"))
+  input_date.send_keys(Keys.RETURN)
+  time.sleep(1)
+
   select_course = Select(WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "schedule_select"))))
   select_course.select_by_visible_text(course)
   time.sleep(1)
@@ -150,7 +164,11 @@ def refresh_tee_times():
 def test_non_resident():
   open_browser()
   open_non_resident()
-  find_tee_time_refresh(courses[0])
+  find_tee_time(courses)
+  time.sleep(1)
+  find_tee_time(courses)
+  time.sleep(1)
+  find_tee_time(courses)
 
 # sched.at("19:00").do(test_non_resident())
 
