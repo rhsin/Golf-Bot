@@ -2,3 +2,7 @@ config.py
 selenium
 chromedriver_py
 pytz
+__pycache__/
+*.py[cod]
+*$py.class
+.cache
