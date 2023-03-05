@@ -52,8 +52,8 @@ def index():
         assert "Bethpage State Park - Online Booking" in driver.title
         print("Browser Opened...")
 
-        # open_non_resident(driver)
-        login(driver)
+        open_non_resident(driver)
+        # login(driver)
 
         end_script = time.time() + 86400
         while time.time() < end_script:
