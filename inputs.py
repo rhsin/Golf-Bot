@@ -1,4 +1,3 @@
-
 def input_course():
   first_course = input("Enter your most preferred course: ")
   course = first_course.lower()
@@ -14,7 +13,6 @@ def input_course():
   else:
     return "Bethpage Yellow Course"   
 
-
 def input_days():
   days_ahead = input("How many days from today? ")
 
@@ -27,7 +25,6 @@ def input_days():
       return 1
   except:
     return 1
-
 
 def order_courses(first_course):
   courses = ["Bethpage Blue Course", "Bethpage Yellow Course", "Bethpage Red Course", "Bethpage Green Course"]
