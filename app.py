@@ -52,10 +52,11 @@ def index():
         assert "Bethpage State Park - Online Booking" in driver.title
         print("Browser Opened...")
 
-        open_non_resident(driver)
-        # login(driver)
+        login(driver)
+        # open_non_resident(driver)
 
-        end_script = time.time() + 86400
+        # end_script = time.time() + 22000
+        end_script = time.time() + 600
         while time.time() < end_script:
             result = find_tee_time(driver, date, courses)
             if result == "Tee-Time Found!":
@@ -69,6 +70,7 @@ def index():
         driver.close()
 
     return render_template('index.html')
+
 
 def login(driver):
     button_resident = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='content']/div/button[1]")))
