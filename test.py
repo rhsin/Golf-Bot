@@ -15,7 +15,7 @@ courses = order_courses(first_course)
 days_ahead = input_days()
 date = datetime.today() + timedelta(days=(days_ahead))
 
-print("Scheduled for 7:00pm EST...")
+# print("Scheduled for 7:00pm EST...")
 
 # while True:
 #   est_tz = timezone('US/Eastern')
@@ -24,7 +24,7 @@ print("Scheduled for 7:00pm EST...")
 #   if datetime.now(est_tz) >= target_time:
 #     break
 
-print("It is 7:00pm EST, Running Golf-Bot Now!") 
+# print("It is 7:00pm EST, Running Golf-Bot Now!") 
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
@@ -39,8 +39,8 @@ driver.get("https://foreupsoftware.com/index.php/booking/index/19765#/")
 assert "Bethpage State Park - Online Booking" in driver.title
 print("Browser Opened...")
 
-open_non_resident(driver)
-# login(driver)
+# open_non_resident(driver)
+login(driver)
 
 end_script = time.time() + 86400
 while time.time() < end_script:
