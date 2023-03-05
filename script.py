@@ -39,8 +39,8 @@ def find_tee_time(driver, date, courses):
   select_course = Select(WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "schedule_select"))))
   select_course.select_by_visible_text(courses[0])
 
-  button_time_morning = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='nav']/div/div[4]/div[1]/div[1]/a[1]")))
-  button_time_morning.click()
+  # button_time_morning = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='nav']/div/div[4]/div[1]/div[1]/a[1]")))
+  # button_time_morning.click()
 
   for course in courses:
     try:

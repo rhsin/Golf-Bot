@@ -17,12 +17,12 @@ date = datetime.today() + timedelta(days=(days_ahead))
 
 print("Scheduled for 7:00pm EST...")
 
-while True:
-  est_tz = timezone('US/Eastern')
-  target_time = datetime.now(est_tz).replace(hour=19, minute=0, second=0, microsecond=0)
+# while True:
+#   est_tz = timezone('US/Eastern')
+#   target_time = datetime.now(est_tz).replace(hour=19, minute=0, second=0, microsecond=0)
 
-  if datetime.now(est_tz) >= target_time:
-    break
+#   if datetime.now(est_tz) >= target_time:
+#     break
 
 print("It is 7:00pm EST, Running Golf-Bot Now!") 
 
@@ -39,7 +39,8 @@ driver.get("https://foreupsoftware.com/index.php/booking/index/19765#/")
 assert "Bethpage State Park - Online Booking" in driver.title
 print("Browser Opened...")
 
-login(driver)
+open_non_resident(driver)
+# login(driver)
 
 end_script = time.time() + 86400
 while time.time() < end_script:
@@ -47,7 +48,7 @@ while time.time() < end_script:
   if result == "Tee-Time Found!":
     break
   else:
-    time.sleep(60)
+    time.sleep(5)
 
 print("Will close browser in 5 mins...")
 time.sleep(300)
