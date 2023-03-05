@@ -30,17 +30,19 @@ def open_non_resident(driver):
   button_non_resident.click()
 
 def find_tee_time(driver, date, courses):
+  select_course = Select(WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "schedule_select"))))
+  select_course.select_by_visible_text(courses[0])
+
   input_date = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='date-field']")))
   input_date.send_keys(Keys.CONTROL + "a")
   input_date.send_keys(Keys.DELETE)
   input_date.send_keys(date.strftime("%m-%d-%Y"))
   input_date.send_keys(Keys.RETURN)
 
-  select_course = Select(WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "schedule_select"))))
-  select_course.select_by_visible_text(courses[0])
-
   # button_time_morning = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='nav']/div/div[4]/div[1]/div[1]/a[1]")))
   # button_time_morning.click()
+  
+  time.sleep(1)
 
   for course in courses:
     try:

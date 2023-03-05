@@ -1,6 +1,8 @@
-def input_course():
-  first_course = input("Enter your most preferred course (first letter: y, b, r, g): ")
-  course = first_course.lower()
+def input_course(first_course):
+  if not first_course:
+    return "Bethpage Yellow Course"
+  else:
+    course = first_course.lower()
 
   if course == 'y':
     return "Bethpage Yellow Course"
@@ -13,9 +15,7 @@ def input_course():
   else:
     return "Bethpage Yellow Course"   
 
-def input_days():
-  days_ahead = input("How many days from today? ")
-
+def input_days(days_ahead):
   try: 
     days_ahead = int(days_ahead)
     if 1 <= days_ahead <= 7:
