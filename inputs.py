@@ -1,5 +1,5 @@
 def input_course():
-  first_course = input("Enter your most preferred course: ")
+  first_course = input("Enter your most preferred course (first letter: y, b, r, g): ")
   course = first_course.lower()
 
   if course == 'y':
