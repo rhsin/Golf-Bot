@@ -17,12 +17,19 @@ date = datetime.today() + timedelta(days=(days_ahead))
 
 print("Scheduled for 7:00pm EST...")
 
-while True:
-  est_tz = timezone('US/Eastern')
-  target_time = datetime.now(est_tz).replace(hour=19, minute=0, second=0, microsecond=0)
+est_tz = timezone('US/Eastern')
+target_time = datetime.now(est_tz).replace(hour=19, minute=0, second=0, microsecond=0)
 
-  if datetime.now(est_tz) >= target_time:
-    break
+print(est_tz)
+print(target_time)
+print(datetime.now(est_tz))
+
+# while True:
+#   est_tz = timezone('US/Eastern')
+#   target_time = datetime.now(est_tz).replace(hour=19, minute=0, second=0, microsecond=0)
+
+#   if datetime.now(est_tz) >= target_time:
+#     break
 
 print("It is 7:00pm EST, Running Golf-Bot Now!") 
 
