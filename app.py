@@ -42,10 +42,6 @@ def index():
         options = webdriver.ChromeOptions()
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
         options.add_argument("--disable-gpu")
-        options.add_argument("--disable-extensions")
-        options.add_argument("--disable-infobars")
-        options.add_argument("--start-maximized")
-        options.add_argument("--disable-notifications")
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
@@ -57,7 +53,7 @@ def index():
 
         driver.get("https://foreupsoftware.com/index.php/booking/index/19765#/")
 
-        assert "Bethpage State Park - Online Booking" in driver.title
+        # assert "Bethpage State Park - Online Booking" in driver.title
         print("Browser Opened...")
 
         login(driver)
