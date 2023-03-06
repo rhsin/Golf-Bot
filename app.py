@@ -84,10 +84,10 @@ def login(driver):
     button_login.click()
 
     input_email = driver.find_element(By.XPATH, "//*[@id='login_email']")
-    input_email.send_keys("jschwa19@binghamton.edu")
+    input_email.send_keys("")
 
     input_password = driver.find_element(By.XPATH, "//*[@id='login_password']")
-    input_password.send_keys("GolfBot12!")
+    input_password.send_keys("")
 
     button_submit = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login']/div/div[3]/div/button[1]")))
     button_submit.click()
