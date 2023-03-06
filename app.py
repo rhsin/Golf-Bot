@@ -1,6 +1,7 @@
 import time
+from flask import Flask, request, render_template
 from datetime import datetime, timedelta
-from pytz import timezone
+# from pytz import timezone
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -9,57 +10,70 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager
 
 global driver
 
-def schedule_tee_times():
-    first_course = input_course()
-    days_ahead = input_days()
-    
-    courses = order_courses(first_course)
-    date = datetime.today() + timedelta(days=(days_ahead))
+app = Flask(__name__)
 
-    print("Scheduled for 7:00pm EST...")
+@app.route('/', methods=['POST', 'GET'])
+def index():
+    if request.method == "POST":
+        form_course = request.form.get("first_course")
+        form_days = request.form.get("days_ahead")
 
-    while True:
-        est_tz = timezone('US/Eastern')
-        target_time = datetime.now(est_tz).replace(hour=19, minute=0, second=0, microsecond=0)
+        first_course = input_course(form_course)
+        days_ahead = input_days(form_days)
+        
+        courses = order_courses(first_course)
+        date = datetime.today() + timedelta(days=(days_ahead))
 
-        if datetime.now(est_tz) >= target_time:
-            break
+        # print("Scheduled for 7:00pm EST...")
 
-    print("It is 7:00pm EST, Running Golf-Bot Now!") 
+        # while True:
+        #     est_tz = timezone('US/Eastern')
+        #     target_time = datetime.now(est_tz).replace(hour=19, minute=0, second=0, microsecond=0)
 
-    options = webdriver.ChromeOptions()
-    options.add_experimental_option('excludeSwitches', ['enable-logging'])
+        #     if datetime.now(est_tz) >= target_time:
+        #         break
 
-    driver = webdriver.Chrome(
-    service= Service(ChromeDriverManager().install()), 
-    options=options,
-    )
+        # print("It is 7:00pm EST, Running Golf-Bot Now!") 
 
-    driver.get("https://foreupsoftware.com/index.php/booking/index/19765#/")
+        option = webdriver.ChromeOptions()
 
-    assert "Bethpage State Park - Online Booking" in driver.title
-    print("Browser Opened...")
+        option.add_argument("--disable-gpu")
+        option.add_argument("--disable-extensions")
+        option.add_argument("--disable-infobars")
+        option.add_argument("--start-maximized")
+        option.add_argument("--disable-notifications")
+        option.add_argument('--headless')
+        option.add_argument('--no-sandbox')
+        option.add_argument('--disable-dev-shm-usage')
+        
+        driver = webdriver.Chrome(options=option)
 
-    login(driver)
-    # open_non_resident(driver)
+        driver.get("https://foreupsoftware.com/index.php/booking/index/19765#/")
 
-    # end_script = time.time() + 22000
-    end_script = time.time() + 600
-    while time.time() < end_script:
-        result = find_tee_time(driver, date, courses)
-        if result == "Tee-Time Found!":
-            break
-        else:
-            # time.sleep(60)
-            time.sleep(5)
+        assert "Bethpage State Park - Online Booking" in driver.title
+        print("Browser Opened...")
 
-    print("Will close browser in 5 mins...")
-    time.sleep(300)
-    driver.close()
+        login(driver)
+        # open_non_resident(driver)
+
+        # end_script = time.time() + 22000
+        end_script = time.time() + 600
+        while time.time() < end_script:
+            result = find_tee_time(driver, date, courses)
+            if result == "Tee-Time Found!":
+                break
+            else:
+                # time.sleep(60)
+                time.sleep(5)
+
+        print("Will close browser in 5 mins...")
+        time.sleep(300)
+        driver.close()
+
+    return render_template('index.html')
 
 
 def login(driver):
@@ -116,9 +130,7 @@ def find_tee_time(driver, date, courses):
     print("Checked All Courses!")
     return "Checked All Courses!"
 
-def input_course():
-    first_course = input("Enter your most preferred course (first letter: y, b, r, g): ")
-
+def input_course(first_course):
     if not first_course:
         return "Bethpage Yellow Course"
     else:
@@ -135,9 +147,7 @@ def input_course():
     else:
         return "Bethpage Yellow Course"   
 
-def input_days():
-    days_ahead = input("How many days from today? ")
-
+def input_days(days_ahead):
     try: 
         days_ahead = int(days_ahead)
         if 1 <= days_ahead <= 7:
@@ -158,5 +168,3 @@ def order_courses(first_course):
     courses.insert(0, first_course) 
     print(courses)
     return courses
-
-schedule_tee_times()
