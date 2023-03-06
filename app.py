@@ -10,6 +10,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
 
 global driver
 
@@ -38,18 +39,21 @@ def index():
 
         # print("It is 7:00pm EST, Running Golf-Bot Now!") 
 
-        option = webdriver.ChromeOptions()
+        options = webdriver.ChromeOptions()
+        options.add_experimental_option('excludeSwitches', ['enable-logging'])
+        options.add_argument("--disable-gpu")
+        options.add_argument("--disable-extensions")
+        options.add_argument("--disable-infobars")
+        options.add_argument("--start-maximized")
+        options.add_argument("--disable-notifications")
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
 
-        option.add_argument("--disable-gpu")
-        option.add_argument("--disable-extensions")
-        option.add_argument("--disable-infobars")
-        option.add_argument("--start-maximized")
-        option.add_argument("--disable-notifications")
-        option.add_argument('--headless')
-        option.add_argument('--no-sandbox')
-        option.add_argument('--disable-dev-shm-usage')
-        
-        driver = webdriver.Chrome(options=option)
+        driver = webdriver.Chrome(
+            service= Service(ChromeDriverManager().install()), 
+            options=options,
+        )
 
         driver.get("https://foreupsoftware.com/index.php/booking/index/19765#/")
 
